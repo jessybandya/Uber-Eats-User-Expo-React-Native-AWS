@@ -1,24 +1,31 @@
 import { StyleSheet, View } from 'react-native';
 import Navigation from './src/Navigation';
-import Basket from './src/Screens/Basket';
-import DishDetailsScreen from './src/Screens/DishDetailsScreen';
-import HomeScreen from './src/Screens/HomeScreen';
-import OrderDetails from './src/Screens/OrderDetails';
-import OrderScreen from './src/Screens/OrdersScreen';
-import RestaurantDetailsScreen from './src/Screens/RestaurantDetailsScreen';
 import { NavigationContainer } from '@react-navigation/native';
+import { Amplify } from "aws-amplify";
+import { withAuthenticator } from "aws-amplify-react-native";
+import config from "./src/aws-exports";
+import AuthContextProvider from "./src/contexts/AuthContext";
+import BasketContextProvider from "./src/contexts/BasketContext";
+import OrderContextProvider from "./src/contexts/OrderContext";
 
-
-export default function App() {
-  return (
-    <NavigationContainer>
-    <Navigation />
-    </NavigationContainer>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-
+Amplify.configure({
+  ...config,
+  Analytics: {
+    disabled: true,
   },
 });
+
+function App(){
+  return (
+    <NavigationContainer>
+    <AuthContextProvider>
+      <BasketContextProvider>
+        <OrderContextProvider>
+        <Navigation />
+        </OrderContextProvider>
+      </BasketContextProvider>
+    </AuthContextProvider>
+  </NavigationContainer>
+  );
+}
+export default withAuthenticator(App);
