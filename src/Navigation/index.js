@@ -8,7 +8,7 @@ import OrdersScreen from "../Screens/OrdersScreen";
 import OrderDetails from "../Screens/OrderDetails";
 
 import { Foundation, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
-import Profile from "../Screens/Profile";
+import Profile from "../Screens/ProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -25,8 +25,8 @@ const Tab = createMaterialBottomTabNavigator();
 const HomeTabs = () => {
   return (
     <Tab.Navigator barStyle={{ backgroundColor: "white" }}
-    activeColor="#5C5CFF"
-    inactiveColor="gray"
+    // activeColor="#5C5CFF"
+    // inactiveColor="gray"
     >
       <Tab.Screen
         name="Home"
