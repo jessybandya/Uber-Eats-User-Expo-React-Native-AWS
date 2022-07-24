@@ -24,7 +24,7 @@ const Profile = () => {
     } else {
       await createUser();
     }
-    // navigation.goBack();
+    navigation.goBack();
   };
 
   const updateUser = async () => {
@@ -37,6 +37,7 @@ const Profile = () => {
       })
     );
     setDbUser(user);
+    alert("Saved!!!")
   };
 
   const createUser = async () => {

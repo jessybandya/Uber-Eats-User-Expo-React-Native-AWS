@@ -12,6 +12,9 @@ const HomeScreen = () => {
   useEffect(() => {
     DataStore.query(Restaurant).then(setRestaurants);
   }, []);
+  if (!restaurants) {
+    return <ActivityIndicator style={{flex: 1, justifyContent:'center', alignItems:'center'}} size={"large"} color="gray" />;
+  }
   return (
     <View style={styles.page}>
     <StatusBar style='auto' />
