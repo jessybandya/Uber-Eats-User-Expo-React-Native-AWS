@@ -3,7 +3,7 @@
   "serviceConfiguration": {
     "apiName": "UberEats",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "/tmp/amplify-8b161073-ff81-4393-a975-ef5c17627ed6/amplify/backend/api/UberEats/schema.graphql",
+    "gqlSchemaPath": "/tmp/amplify-67bc914a-a6de-46de-9ba2-f0f42e176843/amplify/backend/api/UberEats/schema.graphql",
     "defaultAuthType": {
       "mode": "API_KEY",
       "keyDescription": "api key description",

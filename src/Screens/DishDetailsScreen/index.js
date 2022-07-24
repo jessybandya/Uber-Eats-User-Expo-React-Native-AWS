@@ -1,29 +1,58 @@
-import { useState } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { DataStore } from "aws-amplify";
+import { Dish } from "../../models";
+import { useBasketContext } from "../../contexts/BasketContext";
 
-import restaurants from "../../data/restaurants.json";
 import { StatusBar } from "expo-status-bar";
-const dish = restaurants[0].dishes[0];
 
 const DishDetailsScreen = () => {
-    const [quantity, setQuantity] = useState(1);
-    const navigation = useNavigation();
-  
-    const onMinus = () => {
-      if (quantity > 1) {
-        setQuantity(quantity - 1);
-      }
-    };
-  
-    const onPlus = () => {
-      setQuantity(quantity + 1);
-    };
-  
-    const getTotal = () => {
-      return (dish.price * quantity).toFixed(2);
-    };
+  const [dish, setDish] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+
+  const navigation = useNavigation();
+  const route = useRoute();
+  const id = route.params?.id;
+
+  const { addDishToBasket } = useBasketContext();
+
+  useEffect(() => {
+    if (id) {
+      DataStore.query(Dish, id).then(setDish);
+    }
+  }, [id]);
+
+  const onAddToBasket = async () => {
+    await addDishToBasket(dish, quantity);
+    navigation.goBack();
+  };
+
+  const onMinus = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  const onPlus = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const getTotal = () => {
+    return (dish.price * quantity).toFixed(2);
+  };
+
+  if (!dish) {
+    return <ActivityIndicator style={{flex: 1, justifyContent:'center', alignItems:'center'}} size={"large"} color="gray" />;
+  }
+
   return (
     <View style={styles.page}>
     <StatusBar style="auto" />

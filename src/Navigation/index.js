@@ -6,6 +6,7 @@ import DishDetailsScreen from "../Screens/DishDetailsScreen";
 import Basket from "../Screens/Basket";
 import OrdersScreen from "../Screens/OrdersScreen";
 import OrderDetails from "../Screens/OrderDetails";
+import { useAuthContext } from "../contexts/AuthContext";
 
 import { Foundation, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import Profile from "../Screens/ProfileScreen";
@@ -13,9 +14,15 @@ import Profile from "../Screens/ProfileScreen";
 const Stack = createStackNavigator();
 
 function Navigation(){
+  const { dbUser } = useAuthContext();
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="HomeTabs" component={HomeTabs} />
+      {dbUser ? (
+        <Stack.Screen name="HomeTabs" component={HomeTabs} />
+      ) : (
+        <Stack.Screen name="Profile" component={Profile} />
+      )}
     </Stack.Navigator>
   );
 };

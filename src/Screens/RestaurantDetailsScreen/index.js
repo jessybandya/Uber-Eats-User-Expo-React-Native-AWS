@@ -49,7 +49,7 @@ const RestaurantDetailsScreen = () => {
   }, [restaurant]);
 
   if (!restaurant) {
-    return <ActivityIndicator size={"large"} color="gray" />;
+    return <ActivityIndicator style={{flex: 1, justifyContent:'center', alignItems:'center'}} size={"large"} color="gray" />;
   }
   return (
     <View style={styles.page}>
